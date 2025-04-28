@@ -3,15 +3,24 @@ package main
 import (
 	"game-server/player"
 	"game-server/story"
+	"io"
+	"os"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/google/uuid"
 )
 
 func main() {
 	app := fiber.New()
+	file, _ := os.OpenFile("logs/test.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	iw := io.MultiWriter(os.Stdout, file)
+	log.SetOutput(iw)
+	log.SetLevel(log.LevelInfo)
 
+	app.Use(logger.New())
 	// CORS，允许跨域（可选，因为静态托管后基本不会出现跨域了）
 	app.Use(cors.New())
 

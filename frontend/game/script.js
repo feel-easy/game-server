@@ -33,6 +33,7 @@ async function updateLove() {
     const res = await fetch(`${apiBase}/state`);
     const data = await res.json();
     // 更新每个角色的好感度
+    document.getElementById('love').innerText = `好感度：${data.love}`;
     document.getElementById('loveXiaoAi').innerText = `小艾: ${data.xiaoAi}`;
     document.getElementById('loveXiaoXue').innerText = `小雪: ${data.xiaoXue}`;
     document.getElementById('loveXiaoMei').innerText = `小美: ${data.xiaoMei}`;
