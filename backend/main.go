@@ -6,6 +6,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/google/uuid"
 )
 
 func main() {
@@ -15,7 +16,8 @@ func main() {
 	app.Use(cors.New())
 
 	// ✨ 静态资源托管：访问 / 时，加载 frontend 目录下的index.html
-	app.Static("/", "./frontend")
+	app.Static("/", "../frontend/game")
+	app.Static("/admin", "../frontend/game-admin/dist")
 
 	// API接口
 	app.Get("/start", func(c *fiber.Ctx) error {
@@ -46,5 +48,51 @@ func main() {
 		return c.JSON(nextScene)
 	})
 
+	// 获取所有节点
+	app.Get("/api/nodes", func(c *fiber.Ctx) error {
+		return c.JSON(nodes)
+	})
+
+	// 创建一个新节点
+	app.Post("/api/nodes", func(c *fiber.Ctx) error {
+		var node Node
+		if err := c.BodyParser(&node); err != nil {
+			return err
+		}
+
+		node.ID = uuid.New().String()
+		nodes = append(nodes, node)
+		return c.Status(fiber.StatusCreated).JSON(node)
+	})
+
+	// 获取所有边
+	app.Get("/api/edges", func(c *fiber.Ctx) error {
+		return c.JSON(edges)
+	})
+
+	// 创建一个新边
+	app.Post("/api/edges", func(c *fiber.Ctx) error {
+		var edge Edge
+		if err := c.BodyParser(&edge); err != nil {
+			return err
+		}
+
+		edges = append(edges, edge)
+		return c.Status(fiber.StatusCreated).JSON(edge)
+	})
+
 	app.Listen(":3000")
 }
+
+type Node struct {
+	ID   string `json:"id"`
+	Name string `json:"name"`
+}
+
+type Edge struct {
+	From string `json:"from"`
+	To   string `json:"to"`
+}
+
+var nodes []Node
+var edges []Edge
