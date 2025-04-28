@@ -2,6 +2,15 @@ package player
 
 var playerState = &PlayerState{}
 
+func InitPlayer() {
+	playerState = &PlayerState{
+		Love:    0,
+		XiaoAi:  0,
+		XiaoXue: 0,
+		XiaoMei: 0,
+	}
+}
+
 // 玩家状态
 type PlayerState struct {
 	Love    int `json:"love"`    // 总好感度
@@ -41,8 +50,3 @@ func UpdateCharacterLove(character string, change int) {
 func GetCurrentState() *PlayerState {
 	return playerState
 }
-
-// // 调用剧情流程
-// func TriggerStoryProgress(choice string) story.Scene {
-// 	return story.ProgressGame(choice)
-// }

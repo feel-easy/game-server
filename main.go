@@ -19,7 +19,7 @@ func main() {
 
 	// API接口
 	app.Get("/start", func(c *fiber.Ctx) error {
-		// player.InitPlayer()
+		player.InitPlayer()
 		scene := story.StartGame()
 		return c.JSON(scene)
 	})
@@ -38,6 +38,12 @@ func main() {
 	app.Get("/state", func(c *fiber.Ctx) error {
 		state := player.GetCurrentState()
 		return c.JSON(state)
+	})
+
+	app.Get("/random_event", func(c *fiber.Ctx) error {
+		// 这里简单返回一个随机事件场景
+		nextScene := story.GetRandomEvent()
+		return c.JSON(nextScene)
 	})
 
 	app.Listen(":3000")
