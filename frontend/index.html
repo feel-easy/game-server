@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>完蛋！我被美女包围了！</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 30px;
+            background: #f9f9f9;
+        }
+        .scene {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .options button {
+            margin-right: 10px;
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #love {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<h1>完蛋！我被美女包围了！</h1>
+
+<div class="scene">
+    <div id="character"></div>
+    <p id="text">载入中...</p>
+</div>
+
+<div class="options" id="options"></div>
+
+<div id="love">好感度：0</div>
+<!-- 新增：剧情记录 -->
+<div class="history" id="history" style="margin-top:30px; background:#fff; padding:20px; border-radius:10px;">
+  <h2>剧情记录</h2>
+  <ul id="historyList"></ul>
+</div>
+
+<!-- 新增：显示每个女主的好感度 -->
+<div id="characterLove">
+  <h2>角色好感度</h2>
+  <ul id="loveList">
+      <li id="loveXiaoAi">小艾: 0</li>
+      <li id="loveXiaoXue">小雪: 0</li>
+      <li id="loveXiaoMei">小美: 0</li>
+  </ul>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
